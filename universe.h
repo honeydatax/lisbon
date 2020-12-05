@@ -19,7 +19,7 @@ int lineno;
 int error;
 int eerror;
 int page=0;
-char linec[800];
+char linec[4800];
 long cursor=0;
 int subcursor=0;
 int varcursor=0;
