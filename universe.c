@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "index2.h"
+#include "universe.h"
 
 void readll(char *argv1);
 void msgbox();
@@ -293,7 +293,7 @@ void tail(){
 //=================================================================
 //msgbox()
 void msgbox(){
-	printf ("\e[0;37;40m");
+	printf ("\e[0;37;44m");
 }
 
 
