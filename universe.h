@@ -43,6 +43,7 @@ char var2[]=";";
 FILE *f1;
 FILE *f2;
 FILE *f3;
+FILE *f4;
 
 void addtxtbody(char *s);
 void readll2(int n);

@@ -105,8 +105,9 @@ int main(int argc, char *argv[]){
 		char *s2;
 		
 		s1=s;
-		f1=fopen("index.dat","w");
-		f2=fopen("index1.dat","w");
+		f1=fopen("universe.dat","w");
+		f2=fopen("universe1.dat","w");
+		f4=fopen("universe2.dat","w");
 		head();
 		fprintf(f2,"\nmain:\n");
 		f3=f2;
@@ -127,12 +128,13 @@ int main(int argc, char *argv[]){
 		tail();
 		fclose(f1);
 		fclose(f2);
+		fclose(f4);
 		if (eerror==1) {
 			printf("fail to compile error\n");
 		}else{
 			eerror=0;
-			system("nasm -o out.com index.dat 2> indexx.dat");
-			f1=fopen("indexx.dat","r");
+			system("nasm -o out.com universe.dat 2> universexx.dat");
+			f1=fopen("universexx.dat","r");
 			do{
 				if (!feof(f1)){
 					lineno++;
@@ -151,7 +153,7 @@ int main(int argc, char *argv[]){
 				c[0]=0;
 			}while(!feof(stdin));
 			fclose(f1);
-			if(eerror==0) printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
+			if(eerror==0) printf("\ndone...\nopen file universe.dat and universe1.dat and universe2.dat to see codes\n");
 		}
 return 0;
 }
@@ -306,8 +308,9 @@ void head(){
 			addcode ("org 0x100");
 			addcode ("main1:");
 			addcode ("jmp start");
-			addcode ("db 'build in index32 developer tools.... '");
-			addcode ("%include \"index1.dat\"");
+			addcode ("db 'build in universe32 developer tools.... '");
+			addcode ("%include \"universe1.dat\"");
+			addcode ("%include \"universe2.dat\"");
 			addcode ("mains:");
 			addcode ("call main");
 			addcode ("");
