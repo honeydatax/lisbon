@@ -98,9 +98,11 @@ int longdiv();
 //MAIN
 int main(int argc, char *argv[]){
 		msgbox();
+		char *ccc;
 		char *dd;
 		int count=0;
 		int i;
+		int ae1=0;
 		char *s1;
 		char *s2;
 		
@@ -121,7 +123,24 @@ int main(int argc, char *argv[]){
 				fgets(c,800,stdin);
 				dd=strstr(c,"\n");
 				if (dd!=NULL) dd[0]=0;
-				readll(c);	
+				ae1=1;
+				do{
+					dd=strstr(c,"#");
+					if (dd!=NULL) {
+						ccc=dd + 1;
+						ae1=1;
+						dd[0]=0;
+					}else{
+						ae1=0;
+					}
+					if (c[0]!=0){
+						readll(c);	
+						
+					}else{
+						ae1=0;
+					}
+					if(ae1!=0)c=ccc;					
+				}while(ae1!=0);
 			}
 			c[0]=0;
 		}while(!feof(stdin));
