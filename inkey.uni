@@ -1,0 +1,12 @@
+declare,sub1
+declare,sub2
+function,sub1
+	const,0,1,2,3,12,27
+	integer,p1,0
+	integer,p2,1132
+	integer,n,0
+	locate,0,0,0
+	echo,press escape key to exit
+	while,n,27#sub2,0,0,0,0#inkey,n
+function,sub2
+	const,0
