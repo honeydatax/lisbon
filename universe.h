@@ -44,7 +44,10 @@ FILE *f1;
 FILE *f2;
 FILE *f3;
 FILE *f4;
+int ringa=0;
 
+void openring();
+void closering();
 void addtxtbody(char *s);
 void readll2(int n);
 void addkeys2();
@@ -302,7 +305,7 @@ int screen(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -312,7 +315,7 @@ int screen(){
 									addtxtbody("	call scr");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -336,7 +339,7 @@ int back(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -355,7 +358,7 @@ int back(){
 									addtxtbody("	pop ds");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -372,13 +375,13 @@ int doevents(){
 	if(1==count){
 
 		error=0;
-
+openring();
 									addtxtbody("	call setvideo");
 
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -434,7 +437,7 @@ int box(){
 			printf("error var5\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -522,7 +525,7 @@ int box(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -569,7 +572,7 @@ int hline(){
 			printf("error var4\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
@@ -648,7 +651,7 @@ int hline(){
 									addtxtbody("	mov [si],al");
 									addtxtbody("	call hlined32");
 
-
+closering();
 		}
 		return 0;
 }
@@ -695,7 +698,7 @@ int vline(){
 			printf("error var4\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -728,7 +731,7 @@ int vline(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -761,7 +764,7 @@ int stringlen(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
@@ -772,7 +775,7 @@ int stringlen(){
 									addtxtbody("	cs");
 									addtxtbody("	mov [di],eax");
 
-
+closering();
 		}
 		return 0;
 }
@@ -804,14 +807,14 @@ int strs(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
 										fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 										addtxtbody("	cs");
 										addtxtbody("	mov edi,[bx]");
 										addtxtbody("	call STR32");
 
-
+closering();
 		}
 		return 0;
 }
@@ -845,7 +848,7 @@ int strcats(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov edi,[bx]");
@@ -855,7 +858,7 @@ int strcats(){
 									addtxtbody("	call strcat");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -887,7 +890,7 @@ int strcopys(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov di,[bx]");
@@ -905,7 +908,7 @@ int strcopys(){
 									addtxtbody("	mov ds,ax");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -939,7 +942,7 @@ int mempoke(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov edi,[bx]");
@@ -952,7 +955,7 @@ int mempoke(){
 									addtxtbody("	mov ax,cs");
 									addtxtbody("	mov ds,ax");
 
-
+closering();
 		}
 		return 0;
 }
@@ -985,7 +988,7 @@ int mempeek(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	mov di,bx");
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
@@ -1000,7 +1003,7 @@ int mempeek(){
 									addtxtbody("	mov [di],eax");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1036,7 +1039,7 @@ int inputstring(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 
 									addtxtbody("	mov bx,L50");
 									addtxtbody("	mov dx,bx");
@@ -1079,7 +1082,7 @@ int inputstring(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1111,7 +1114,7 @@ int vals(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	mov di,bx");
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
@@ -1120,7 +1123,7 @@ int vals(){
 									addtxtbody("	call val");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1220,6 +1223,7 @@ int booleanlike(){
 			printf("error var3\n");
 			error=1;
 		}
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1234,7 +1238,7 @@ int booleanlike(){
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
-
+closering();
 		}
 		return 0;
 }
@@ -1274,6 +1278,7 @@ int booleandiferent(){
 			printf("error var3\n");
 			error=1;
 		}
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1288,7 +1293,7 @@ int booleandiferent(){
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
-
+closering();
 		}
 		return 0;
 }
@@ -1326,6 +1331,7 @@ int ors(){
 			printf("error var3\n");
 			error=1;
 		}
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1337,6 +1343,7 @@ int ors(){
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],eax");
 
+closering();
 		}
 		return 0;
 }
@@ -1376,6 +1383,7 @@ int booleanbig(){
 			printf("error var3\n");
 			error=1;
 		}
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1390,7 +1398,7 @@ int booleanbig(){
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
-
+closering();
 		}
 		return 0;
 }
@@ -1428,6 +1436,7 @@ int booleanless(){
 			printf("error var3\n");
 			error=1;
 		}
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1443,6 +1452,7 @@ int booleanless(){
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
 
+closering();
 		}
 		return 0;
 }
@@ -1474,7 +1484,7 @@ int notss(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1483,6 +1493,7 @@ int notss(){
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],eax");
 
+closering();
 		}
 		return 0;
 }
@@ -1516,7 +1527,7 @@ int bbooleanb(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov eax,[bx]");
@@ -1528,7 +1539,7 @@ int bbooleanb(){
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
-
+closering();
 		}
 		return 0;
 }
@@ -1553,7 +1564,7 @@ int filecreat(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
@@ -1563,7 +1574,7 @@ int filecreat(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1597,7 +1608,7 @@ int fileopen(){
 			printf("error var2\n");
 			error=1;
 		}
-
+openring();
 
 									fprintf(f2,"	mov dx,varnext%d\n",i2+varnextstart);
 									addtxtbody("	mov ah,0x3d");
@@ -1610,7 +1621,7 @@ int fileopen(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1637,7 +1648,7 @@ int fileclose(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
@@ -1648,7 +1659,7 @@ int fileclose(){
 									addtxtbody("	int 0x21");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1689,7 +1700,7 @@ int filewrite(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
@@ -1705,7 +1716,7 @@ int filewrite(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1744,7 +1755,7 @@ int fileread(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -1761,7 +1772,7 @@ int fileread(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1793,13 +1804,13 @@ int nosound(){
 	if(1==count){
 
 		error=0;
-
+openring();
 
 
 									addtxtbody("	call nosound");
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1828,7 +1839,7 @@ int sound(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
@@ -1838,7 +1849,7 @@ int sound(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1860,7 +1871,7 @@ int beeps(){
 	if(1==count){
 
 		error=0;
-
+openring();
 
 
 									addtxtbody("	mov eax,750");
@@ -1871,7 +1882,7 @@ int beeps(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1897,7 +1908,7 @@ int stringlow(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov esi,[bx]");
@@ -1923,7 +1934,7 @@ int stringlow(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -1950,7 +1961,7 @@ int stringhigh(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov esi,[bx]");
@@ -1976,7 +1987,7 @@ int stringhigh(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2019,7 +2030,7 @@ int findchar(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2055,7 +2066,7 @@ int findchar(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2097,7 +2108,7 @@ int stringcmp(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2132,7 +2143,7 @@ int stringcmp(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2174,7 +2185,7 @@ int findstr(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2200,7 +2211,7 @@ int findstr(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2220,7 +2231,7 @@ int mouseshow(){
 	if(1==count){
 
 		error=0;
-
+openring();
 
 
 									addtxtbody("	mov ax,1");
@@ -2228,7 +2239,7 @@ int mouseshow(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2247,7 +2258,7 @@ int mousehide(){
 	if(1==count){
 
 		error=0;
-
+openring();
 
 
 									addtxtbody("	mov ax,2");
@@ -2255,7 +2266,7 @@ int mousehide(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2295,7 +2306,7 @@ int mousebutton(){
 			printf("error var3\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2316,7 +2327,7 @@ int mousebutton(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2390,7 +2401,7 @@ int insidebox(){
 			printf("error var7\n");
 			error=1;
 		}
-
+openring();
 
 		fprintf(f2,"	lineno%d:\n",lineno);
 		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
@@ -2456,6 +2467,7 @@ int insidebox(){
 		fprintf(f2,"	mov edx,[si]\n");
 		fprintf(f2,"	call sub%d\n",i3);
 		fprintf(f2,"	linenos%d:\n",lineno);
+closering();
 	}
 	
 }
@@ -2484,7 +2496,7 @@ int filechain(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 									addtxtbody("	mov ax,0xffff");
 									addtxtbody("	mov sp,ax");
@@ -2519,7 +2531,7 @@ int filechain(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2545,7 +2557,7 @@ int fileexec(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2630,7 +2642,7 @@ int fileexec(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2657,7 +2669,7 @@ int timercicle(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2670,7 +2682,7 @@ int timercicle(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2699,7 +2711,7 @@ int timercount(){
 			printf("error var1\n");
 			error=1;
 		}
-
+openring();
 
 
 
@@ -2737,7 +2749,7 @@ int timercount(){
 
 
 
-
+closering();
 		}
 		return 0;
 }
@@ -2745,7 +2757,15 @@ int timercount(){
 
 //=================================================================
 
+void openring(){
+	fprintf(f2,"	ringa%d:\n",ringa);
+}
+//=================================================================
 
+void closering(){
+	ringa++;
+	fprintf(f2,"	call ringa%d\n	ret\n",ringa);
+}
 
 
 
