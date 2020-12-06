@@ -2349,7 +2349,7 @@ int insidebox(){
 	int i8;
 	int i9;
 	char *ss1;
-	if(8==count){
+	if(3==count){
 
 		error=0;
 
@@ -2367,43 +2367,6 @@ int insidebox(){
 			error=1;
 		}
 
-		ss1=uppercase(ss[5]);
-		i5=findvar(ss1);
-		if (i5==-1){
-			printf("error var3\n");
-			error=1;
-		}
-
-		ss1=uppercase(ss[4]);
-		i4=findvar(ss1);
-		if (i4==-1){
-			printf("error var4\n");
-			error=1;
-		}
-
-
-		ss1=uppercase(ss[3]);
-		i3=findkey(ss1);
-		if (i3<substart){
-			printf("error key\n");
-			error=1;
-		}
-
-
-
-		ss1=uppercase(ss[6]);
-		i6=findvar(ss1);
-		if (i6==-1){
-			printf("error var6\n");
-			error=1;
-		}
-
-		ss1=uppercase(ss[7]);
-		i7=findvar(ss1);
-		if (i7==-1){
-			printf("error var7\n");
-			error=1;
-		}
 openring();
 
 		fprintf(f2,"	lineno%d:\n",lineno);
@@ -2455,22 +2418,9 @@ openring();
 		fprintf(f2,"	mov ebx,[si]\n");
 		fprintf(f2,"	cmp ebx,eax\n");
 		fprintf(f2,"	jg linenos%d \n",lineno);
-
-		fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
-		fprintf(f2,"	cs\n");
-		fprintf(f2,"	mov eax,[si]\n");
-		fprintf(f2,"	mov si,varnext%d\n",i5+varnextstart);
-		fprintf(f2,"	cs\n");
-		fprintf(f2,"	mov ebx,[si]\n");
-		fprintf(f2,"	mov si,varnext%d\n",i6+varnextstart);
-		fprintf(f2,"	cs\n");
-		fprintf(f2,"	mov ecx,[si]\n");
-		fprintf(f2,"	mov si,varnext%d\n",i7+varnextstart);
-		fprintf(f2,"	cs\n");
-		fprintf(f2,"	mov edx,[si]\n");
-		fprintf(f2,"	call sub%d\n",i3);
+callring();
 		fprintf(f2,"	linenos%d:\n",lineno);
-closering();
+endring();
 	}
 	
 }
