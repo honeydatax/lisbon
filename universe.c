@@ -4379,7 +4379,7 @@ openring();
 									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [si],eax");
-
+closering();
 		}
 		return 0;
 }

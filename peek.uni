@@ -1,0 +1,16 @@
+declare,sub1
+declare,sub2
+function,sub1
+	const,0,1,2,3,13,27
+	integer,n,0
+	locate,13,0,0
+	echo,press escape key to exit
+	while,n,27#sub2,0,0,0,0#inkey,n
+function,sub2
+	const,0,1,2,3,27,18
+	integer,key,0
+	integer,p2,1132
+	mem.peek,key,p2
+	div,key,key,18
+	locate,0,0,0
+	printnumber,key	
