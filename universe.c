@@ -124,6 +124,7 @@ int main(int argc, char *argv[]){
 				dd=strstr(c,"\n");
 				if (dd!=NULL) dd[0]=0;
 				ae1=1;
+				fprintf(f4,";%s\n",c);
 				fprintf(f4,"call ringa%d\n",ringa);
 				do{
 					dd=strstr(c,"#");
@@ -135,6 +136,7 @@ int main(int argc, char *argv[]){
 						ae1=0;
 					}
 					if (c[0]!=0){
+						fprintf(f2,";%s\n",c);
 						readll(c);	
 						
 					}else{
