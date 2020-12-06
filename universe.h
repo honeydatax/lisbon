@@ -46,6 +46,9 @@ FILE *f3;
 FILE *f4;
 int ringa=0;
 
+
+void callring();
+void endring();
 void openring();
 void closering();
 void addtxtbody(char *s);
@@ -2765,6 +2768,19 @@ void openring(){
 void closering(){
 	ringa++;
 	fprintf(f2,"	call ringa%d\n	ret\n",ringa);
+}
+
+//=================================================================
+
+
+void callring(){
+	ringa++;
+	fprintf(f2,"	call ringa%d\n",ringa);
+}
+//=================================================================
+
+void endring(){
+	fprintf(f2,"\n	ret\n",ringa);
 }
 
 
