@@ -1,0 +1,6 @@
+declare,sub1
+
+function,sub1
+	const,0,1,2,3,12,16
+	integer,n,0
+	for,n,0,16,1#locate,0,n,0#printnumber,n
