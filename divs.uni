@@ -1,0 +1,17 @@
+declare,sub1
+declare,divis
+function,sub1
+	const,0,1,2,3,50,10
+	integer,p1,0
+	integer,valres,0
+	pointer,p1,valres
+	divis,p1,50,10,0
+	locate,0,0,0
+	printnumber,valres
+function,divis
+	const,0,1,2,3,4
+	integer,valres,0
+	integer,p2,0
+	pointer,p2,valres
+	div,valres,argv1,argv2
+	memcopy,argv0,p2,4

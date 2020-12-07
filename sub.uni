@@ -1,0 +1,24 @@
+declare,sub1
+declare,sub2
+declare,clears
+function,sub1
+	const,0,1,2,3,50,10,16,1024
+	integer,n,0
+	integer,p1,0
+	integer,valres,1024
+	pointer,p1,valres
+	clears,3,0,0,0
+	locate,0,0,0
+	for,n,0,16,1#sub2,p1,valres,16,n
+function,clears
+	const,0,1,2,3
+	screen,3
+function,sub2
+	const,0,1,2,3,4
+	integer,valres,0
+	integer,p2,0
+	pointer,p2,valres
+	sub,valres,argv1,argv2
+	locate,0,argv3,0
+	printnumber,valres
+	memcopy,argv0,p2,4
