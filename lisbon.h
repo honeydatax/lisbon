@@ -1,0 +1,2749 @@
+#define textsize 900000
+#define nlines 12000
+
+
+int count;
+int ccount=0;
+int lastslasts=0;
+int nextsnexts=0;
+char labels[50*50];
+int mainsub=0;
+int substart=0;
+int n=0;
+int parametscount=0;
+int paramets[5000];
+int varnextstart=0;
+int varnext=0;
+long varsart;
+int lineno;
+int error;
+int eerror;
+int page=0;
+char linec[4800];
+long cursor=0;
+int subcursor=0;
+int varcursor=0;
+char *c=linec;
+char *cc;
+char *ccc;
+char *tabs[nlines];
+char *var[5000];
+char *subs[5000];
+char var0[1024];
+char var3[160];
+char varvar[64000];
+int tindex=0;
+char s[textsize];
+char *ss[500];
+int count2=0;
+char *i[1024];
+char *ii[50];
+char *iii[1024];
+char var2[]=";";
+FILE *f1;
+FILE *f2;
+FILE *f3;
+FILE *f4;
+int ringa=0;
+
+
+void callring();
+void endring();
+void openring();
+void closering();
+void addtxtbody(char *s);
+void readll2(int n);
+void addkeys2();
+void addcode2();
+int findkey(char *s);
+int screen();
+int findvar(char *s);
+int back();
+int doevents();
+int box();
+int hline();
+int vline();
+int stringlen();
+int strs();
+int strcats();
+int strcopys();
+int mempoke();
+int inputs();
+int mempeek();
+int inputstring();
+int vals();
+int floatconsts();
+void addkey(char *sss,int func);
+void addvar(char *sss);
+char *uppercase(char *s);
+int doubleconsts();
+int booleanlike();
+int booleandiferent();
+int ors();
+int booleanbig();
+int booleanless();
+int notss();
+int bbooleanb();
+int filecreat();
+int fileopen();
+int fileclose();
+int filewrite();
+int fileread();
+int nosound();
+int sound();
+int beeps();
+int stringlow();
+int stringhigh();
+int findchar();
+int stringcmp();
+int findstr();
+int mouseshow();
+int mousehide();
+int mousebutton();
+int insidebox();
+int filechain();
+int fileexec();
+int timercicle();
+int timercount();
+//=================================================================
+void readll2(int n){
+	if (n==22) strcats();
+	if (n==23) strcopys();
+	if (n==25) inputstring();
+	if (n==33) strs();
+	if (n==34) vals();
+	if (n==44) filecreat();
+	if (n==45) fileopen();
+	if (n==46) fileclose();
+	if (n==47) fileread();
+	if (n==48) filewrite();
+	if (n==49) stringlen();
+	if (n==54) mempoke();
+	if (n==53) mempeek();
+	if (n==56) notss();
+	if (n==61) stringcmp();
+	if (n==62) stringlow();
+	if (n==63) stringhigh();
+	if (n==65) findchar();
+	if (n==67) findstr();
+	if (n==71) screen();
+	if (n==75) back();
+	if (n==76) hline();
+	if (n==77) doevents();
+	if (n==78) box();
+	if (n==79) filechain();
+	if (n==80) fileexec();
+	if (n==81) timercicle();
+	if (n==85) vline();
+	if (n==86) nosound();
+	if (n==87) sound();
+	if (n==88) beeps();
+	if (n==120) floatconsts();
+	if (n==121) doubleconsts();
+	if (n==122) booleanlike();
+	if (n==123) booleandiferent();
+	if (n==124) ors();
+	if (n==125) booleanbig();
+	if (n==126) booleanless();
+	if (n==127) bbooleanb();
+	if (n==128) mouseshow();
+	if (n==129) mousehide();
+	if (n==130) mousebutton();
+	if (n==131) insidebox();
+	if (n==132) timercount();
+
+}
+
+//=================================================================
+
+
+
+//=================================================================
+
+//addtxtbody
+void addtxtbody(char *s){
+	fprintf(f2,"%s\n",s);
+}
+
+
+//=================================================================
+//addkey
+void addvar(char *sss){
+	int i;
+	char *ss1;
+	var[varcursor]=s+cursor;
+	strcpy(var[varcursor],sss);
+	ss1=uppercase(var[varcursor]);
+	i=strlen(ss1)+2;
+	var[varcursor]=ss1;
+	cursor=cursor+((long) i);
+	varcursor++;
+	
+}
+
+
+
+//=================================================================
+
+
+//=================================================================
+//findvar
+int findvar(char *s){
+	int n;
+	int i=-1;
+	for (n=0;n<varcursor;n++){
+		if(strcmp(s,var[n])==0){
+			i=n;
+			n=varcursor+1;
+		}
+		
+	}
+	return i;
+}
+
+//=================================================================
+
+//findkey
+int findkey(char *s){
+	int n;
+	int i=-1;
+	for (n=0;n<subcursor;n++){
+		if(strcmp(s,subs[n])==0){
+			i=n;
+			n=subcursor+1;
+		}
+		
+	}
+	return i;
+}
+
+
+
+//=================================================================
+//uppercase
+char *uppercase(char *s){
+	int n;
+	int nn=strlen(s);
+	int value=0;
+	char *r=s;
+	char c=0;
+	for(n=0;n<nn;n++){
+		c=s[n];
+		if (c!=0){
+			if (value==0 && c>32){
+				value=1;
+				r=s+n;
+			}
+			if (c>='a' && c<='z')s[n]=c-32;
+			if (value==1 && c<33){
+				s[n]=0;
+				n=nn+1;
+			}
+		}
+		
+	}
+
+	return r;
+}
+//=================================================================
+
+//addkey
+void addkey(char *sss,int func){
+	int i;
+	char *ss;
+	subs[subcursor]=s+cursor;
+	strcpy(subs[subcursor],sss);
+	ss=uppercase(subs[subcursor]);
+	i=strlen(ss)+2;
+	subs[subcursor]=ss;
+	//printf("t%d,%s,%d\n",subcursor,subs[subcursor],func);
+	paramets[subcursor]=func;
+	cursor=cursor+((long) i);
+	subcursor++;
+	
+}
+
+//=================================================================
+
+
+void addkeys2(){
+;
+	addkey ("float.const",2); //120
+	addkey ("double.const",2); //121
+	addkey ("boolean.like",4); //122
+	addkey ("boolean.diferent",4); //123
+	addkey ("bits.or",4); //124
+	addkey ("boolean.big",4); //125
+	addkey ("boolean.less",4); //126
+	addkey ("(boolean)",3); //127
+	addkey ("mouse.show",1); //128
+	addkey ("mouse.hide",1); //129
+	addkey ("mouse.button",4); //130
+	addkey ("inside.box",8); //131
+	addkey ("timer.count",2); //132
+}
+
+//=================================================================
+
+void addcode2(){
+;
+}
+
+//=================================================================
+
+int screen(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									addtxtbody("	call scr");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int back(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[bx]");
+									addtxtbody("	mov edi,140000h") ;
+									addtxtbody("	mov ecx,64000") ;
+									addtxtbody("	push ds");
+									addtxtbody("	push es");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	mov ds,dx");
+									addtxtbody("	mov es,dx");
+									addtxtbody("	call memfilld");
+									addtxtbody("	pop es");
+									addtxtbody("	pop ds");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int doevents(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+openring();
+									addtxtbody("	call setvideo");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int box(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(6==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+
+
+		ss1=uppercase(ss[5]);
+		i5=findvar(ss1);
+		if (i5==-1){
+			printf("error var5\n");
+			error=1;
+		}
+openring();
+
+
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxdx");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxdy");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxdx1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxdy1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i5+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,boxdcolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call boxd32");
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor ebx,ebx");
+									addtxtbody("	cs");
+									addtxtbody("	mov bx,[si]");
+									addtxtbody("	sub ebx,eax");
+									addtxtbody("	mov eax,ebx");
+									addtxtbody("	push eax");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mov ebx,4");
+									addtxtbody("	div ebx");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mul ebx");
+									addtxtbody("	pop ebx");
+									addtxtbody("	sub ebx,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	sub eax,ebx");
+
+									addtxtbody("	mov si,boxx");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxy");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxx1");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,boxy1");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i5+varnextstart);
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,boxcolor");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call box32");
+
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+int hline(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(5==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,hlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call hlined32");
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor ebx,ebx");
+									addtxtbody("	cs");
+									addtxtbody("	mov bx,[si]");
+									addtxtbody("	sub ebx,eax");
+									addtxtbody("	mov eax,ebx");
+									addtxtbody("	push eax");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mov ebx,4");
+									addtxtbody("	div ebx");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mul ebx");
+									addtxtbody("	pop ebx");
+									addtxtbody("	sub ebx,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	sub eax,ebx");
+
+									addtxtbody("	mov si,hlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,hlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call hlined32");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+int vline(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(5==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+openring();
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vliney1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,vlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call vline32");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+int stringlen(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[si]");
+									addtxtbody("	call len32");
+									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],eax");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int strs(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+										fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+										addtxtbody("	cs");
+										addtxtbody("	mov edi,[bx]");
+										addtxtbody("	call STR32");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int strcats(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	call strcat");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int strcopys(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov di,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov al,0");
+									addtxtbody("	mov [edi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	call strcat");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int mempoke(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[bx]");
+									addtxtbody("	mov dx,0");
+									addtxtbody("	mov ds,dx");
+									addtxtbody("	mov [edi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+int mempeek(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov di,bx");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov dx,0");
+									addtxtbody("	mov ds,dx");
+									addtxtbody("	mov eax,[esi]");
+									addtxtbody("	mov dx,cs");
+									addtxtbody("	mov ds,dx");
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],eax");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+//=================================================================
+
+
+int inputstring(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+
+									addtxtbody("	mov bx,L50");
+									addtxtbody("	mov dx,bx");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov cl,[bx]");
+									addtxtbody("	mov bx,dx");
+									addtxtbody("	xor ch,ch");
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],cx");
+									addtxtbody("	mov ah,0xa");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov bx,L50");
+									addtxtbody("	inc bx");
+									addtxtbody("	mov si,bx");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	cs");
+									addtxtbody("	mov cl,[bx]");
+									addtxtbody("	push ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	inc esi");
+									addtxtbody("	mov edx,1");
+									addtxtbody("	call COPYMEM32");
+									addtxtbody("	pop ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	mov al,0");
+									addtxtbody("	add esi,ecx");
+									addtxtbody("	mov [esi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int vals(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov di,bx");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	call val");
+
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int floatconsts(){
+	int i;
+	int n;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dff=0.00;
+	if(paramets[69]<=count){
+		error=0;
+		for (n=0;n<count-1;n++){
+			ss1=uppercase(ss[n+1]);
+			i=findvar(ss1);
+			if (i==-1){
+				addvar (ss1);
+				i=findvar(ss1);
+			}else{
+				printf("var:%s\n",ss1);
+				error=1;
+			}
+			dff=atof(ss1);
+			dff=dff*100;
+			l=(long) dff;
+			fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+			varnext++;
+		}
+	}
+	return 0;
+}
+
+//=================================================================
+
+int doubleconsts(){
+	int i;
+	int n;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dff=0.00;
+	if(paramets[69]<=count){
+		error=0;
+		for (n=0;n<count-1;n++){
+			ss1=uppercase(ss[n+1]);
+			i=findvar(ss1);
+			if (i==-1){
+				addvar (ss1);
+				i=findvar(ss1);
+			}else{
+				printf("var:%s\n",ss1);
+				error=1;
+			}
+			dff=atof(ss1);
+			dff=dff*10000;
+			l=(long) dff;
+			fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+			varnext++;
+		}
+	}
+	return 0;
+}
+
+//=================================================================
+
+int booleanlike(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jnz linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int booleandiferent(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int ors(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	or eax,ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int booleanbig(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jbe linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+int booleanless(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jae linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+//=================================================================
+
+int notss(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	not eax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+closering();
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+//=================================================================
+
+int bbooleanb(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,0");
+									fprintf(f2,"	jz linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+int filecreat(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3c");
+									addtxtbody("	mov cx,0");
+									addtxtbody("	int 0x21");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int fileopen(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+openring();
+
+									fprintf(f2,"	mov dx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mov dx,ax");
+									addtxtbody("	mov [bx],edx");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int fileclose(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov bx,ax");
+									addtxtbody("	mov al,2");
+									addtxtbody("	mov ah,0x3e");
+									addtxtbody("	int 0x21");
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int filewrite(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ecx,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov di,ax");
+									addtxtbody("	call WRITE32");
+
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+int fileread(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ecx,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov di,ax");
+									addtxtbody("	call READ32");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=================================================================
+
+int nosound(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+openring();
+
+
+									addtxtbody("	call nosound");
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+//=================================================================
+
+int sound(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	call sound");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+//=================================================================
+
+int beeps(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+openring();
+
+
+									addtxtbody("	mov eax,750");
+									addtxtbody("	call sound");
+									addtxtbody("	mov eax,8");
+									addtxtbody("	call sleep");
+									addtxtbody("	call nosound");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+//=================================================================
+
+int stringlow(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlower");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int stringhigh(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memhigth");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+//=================================================================
+
+int findchar(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	call findchr");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],ecx");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+//=================================================================
+
+int stringcmp(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	call comps");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],ecx");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+//=================================================================
+
+int findstr(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	call findstr");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],ecx");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int mouseshow(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+openring();
+
+
+									addtxtbody("	mov ax,1");
+									addtxtbody("	int 0x33");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+int mousehide(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+openring();
+
+
+									addtxtbody("	mov ax,2");
+									addtxtbody("	int 0x33");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+//=================================================================
+
+int mousebutton(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+openring();
+
+
+
+									addtxtbody("	mov eax,3");
+									addtxtbody("	mov ebx,eax");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov edx,eax");
+									addtxtbody("	int 0x33");
+									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],ecx");
+									fprintf(f2,"	mov di,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],edx");
+									fprintf(f2,"	mov di,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],ebx");
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+int insidebox(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+openring();
+
+		fprintf(f2,"	lineno%d:\n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp ebx,eax\n");
+		fprintf(f2,"	jl linenos%d \n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	mov ax,8\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add si,ax\n");
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp ebx,eax\n");
+		fprintf(f2,"	jg linenos%d \n",lineno);
+
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	mov ax,4\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add si,ax\n");
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	mov bx,4\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add si,bx\n");
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp ebx,eax\n");
+		fprintf(f2,"	jl linenos%d \n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	mov ax,12\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add si,ax\n");
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	mov bx,4\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add si,bx\n");
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp ebx,eax\n");
+		fprintf(f2,"	jg linenos%d \n",lineno);
+callring();
+		fprintf(f2,"	linenos%d:\n",lineno);
+endring();
+	}
+	
+}
+
+
+
+//=================================================================
+
+
+//=================================================================
+
+int filechain(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+									addtxtbody("	mov ax,0xffff");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	push ax");
+									addtxtbody("	mov ax,0x100");
+									addtxtbody("	mov ax,0x80");
+									addtxtbody("	mov di,0x80");
+									addtxtbody("	mov si,chain");
+									addtxtbody("	mov ecx,0x70");
+									fprintf(f2,"mainloop%d:\n",lineno);
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov [di],ax");
+									addtxtbody("	inc si");
+									addtxtbody("	inc di");
+									addtxtbody("	dec cx");
+									addtxtbody("	cmp cx,0");
+									fprintf(f2,"jnz mainloop%d\n",lineno);
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	jc LJMP%d\n",lineno);
+									addtxtbody("	mov bx,0xfa");
+									addtxtbody("	mov [bx],ax");
+									addtxtbody("	mov ax,0x80");
+									addtxtbody("	jmp ax");
+									fprintf(f2,"	LJMP%d:\n",lineno);
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+int fileexec(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									addtxtbody("	mov ax,0xffff");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	push ax");
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	jc LJMP%d\n",lineno);
+									addtxtbody("	mov si,ax");
+									fprintf(f2,"	jmp LJMPS%d\n",lineno);
+									fprintf(f2,"LJMP%d:\n",lineno);
+									addtxtbody("	xor ax,ax");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"LJMPS%d:\n",lineno);
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov bx,0x1000");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov dx,0x0");
+									addtxtbody("	mov cx,65530");
+									addtxtbody("	mov bx,si");
+									addtxtbody("	mov ah,0x3f");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov bx,si");
+									addtxtbody("	mov al,2");
+									addtxtbody("	mov ah,0x3e");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov ax,ds");
+									addtxtbody("	mov dx,16");
+									addtxtbody("	add dx,ax");
+									addtxtbody("	mov bx,0x0e");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	add ax,dx");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov bx,0x10");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov bx,0x16");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov bx,16");
+									addtxtbody("	add ax,dx");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	push ax");
+									addtxtbody("	mov bx,0x14");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	push ax");
+									addtxtbody("	mov ax,ds");
+									addtxtbody("	mov bx,16");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov cx,0x80");
+									addtxtbody("	mov si,0");
+									addtxtbody("	mov di,si");
+									fprintf(f2,"mainloop%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	es");
+									addtxtbody("	mov [di],ax");
+									addtxtbody("	inc si");
+									addtxtbody("	inc di");
+									addtxtbody("	dec cx");
+									addtxtbody("	cmp cx,0");
+									fprintf(f2,"jnz mainloop%d\n",lineno);
+									addtxtbody("	mov ax,es");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov cx,0xf000");
+									addtxtbody("	retf");
+									addtxtbody("	ret");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int timercicle(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	call cicle");
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+
+//=================================================================
+
+int timercount(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+openring();
+
+
+
+
+
+									addtxtbody("	mov eax,0x40");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov bx,0x6c");
+									addtxtbody("	ds");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"LLLA%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz LLLA%d\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	mov edx,0");
+									fprintf(f2,"LLLB%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	inc edx");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz LLLB%d\n",lineno);
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+
+
+
+
+
+closering();
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+void openring(){
+	fprintf(f2,"	ringa%d:\n",ringa);
+}
+//=================================================================
+
+void closering(){
+	ringa++;
+	fprintf(f2,"	call ringa%d\n	ret\n",ringa);
+}
+
+//=================================================================
+
+
+void callring(){
+	ringa++;
+	fprintf(f2,"	call ringa%d\n",ringa);
+}
+//=================================================================
+
+void endring(){
+	fprintf(f2,"\n	ret\n",ringa);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
