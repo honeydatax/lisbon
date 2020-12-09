@@ -1,0 +1,21 @@
+declare,main
+declare,number
+function,main
+	const,0,1,2,17,3
+	long,a,0x71
+	integer,b,1
+	integer,c,16
+	integer,d,1
+	locate,0,0,0
+	echo,0123456789012345|
+	locate,0,1,0
+	screen,3
+	color,a
+	for,a,b,c,d#number,a,0,0,0
+	locate,0,17,0
+function,number
+	const,0,1,2,16
+	integer,y,0
+	locate,0,argv0,0
+	eval,y,argv0*16
+	printhex,y

@@ -1,0 +1,11 @@
+declare,main
+function,main
+	const,0,1,2,3,17
+	long,a,0xfffffff
+	long,b,0xff
+	long,c,0
+	screen,3
+	color,1
+	long.div,c,a,b
+	locate,0,0,0
+	printhex,c
