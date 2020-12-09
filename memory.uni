@@ -1,0 +1,15 @@
+declare,main
+declare,lists
+function,main
+	const,0,1,2,3
+	screen,3
+	color,1
+	lists,argv0,argv0,argv0,argv0
+function,lists
+	const,0,1,10
+	;,memory
+	memory,s,753664
+	;,end memory
+	locate,1,1,0
+	;,print pointer	
+	printnumber,s
