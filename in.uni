@@ -1,0 +1,16 @@
+declare,main
+declare,hello
+function,main
+	const,0,1,2,3
+	integer,abc,0
+	screen,3
+	color,1
+	hello,abc,abc,abc,abc
+function,hello
+	const,0,1,2,3
+	locate,0,0,0
+	 echo	 ,hello world.!
+	locate,0,1,0
+	 echo	 ,hello there.!
+	locate,0,2,0
+	 echo	 ,say hi.!
