@@ -5635,13 +5635,13 @@ int printhex(){
 		}else{
 			error=1;
 		}
-			fprintf(f2,"ringa%d:\n");
+			fprintf(f2,"ringa%d:\n",ringa);
 			fprintf(f2,"	mov si,varnext%d\n",i+varnextstart);
 			fprintf(f2,"	call hex64\n");
 			fprintf(f2,"	mov si,L52\n");
 			addtxtbody("	call echo");
 			ringa++;
-			fprintf(f2,"call ringa%d\nret\n");
+			fprintf(f2,"call ringa%d\nret\n",ringa);
 
 			error=0;
 		}
