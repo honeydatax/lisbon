@@ -177,7 +177,7 @@ int main(int argc, char *argv[]){
 				c[0]=0;
 			}while(!feof(stdin));
 			fclose(f1);
-			if(eerror==0) printf("\ndone...\nopen file universe.dat and universe1.dat and universe2.dat to see codes\n");
+			if(eerror==0) printf("\ndone...\nopen file lisbon.dat and lisbon1.dat and lisbon2.dat to see codes\n");
 		}
 return 0;
 }
@@ -336,9 +336,9 @@ void head(){
 			addcode ("org 0x100");
 			addcode ("main1:");
 			addcode ("jmp start");
-			addcode ("db 'build in universe32 developer tools.... '");
-			addcode ("%include \"universe1.dat\"");
-			addcode ("%include \"universe2.dat\"");
+			addcode ("db 'build in lisbon32 developer tools.... '");
+			addcode ("%include \"lisbon1.dat\"");
+			addcode ("%include \"lisbon2.dat\"");
 			addcode ("mains:");
 			addcode ("call main");
 			addcode ("");
