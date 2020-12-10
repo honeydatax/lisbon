@@ -1,0 +1,26 @@
+declare,main
+declare,lists
+declare,number
+declare,while1
+function,main
+	const,0,1,2,3,24,79,23,113,32
+	screen,3
+	color,23
+	window.text,0,0,79,24
+	color,113
+	window.text,0,0,32,24
+	lists,argv0,argv0,argv0,argv0
+function,lists
+	const,0,1,2,3,4,5,6,7,8,9,10,17
+	integer,t,0
+	integer,n,0
+	pointer,t,n
+	while,n,17#while1,n,t,0,0
+function,number
+	printnumber,argv0
+function,while1
+	const,0,1
+	locate,argv0,argv0,0
+	number,argv0,0,0,0
+	add,argv0,argv0,1
+	pointer.to,argv1,argv0

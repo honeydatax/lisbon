@@ -1,0 +1,19 @@
+
+declare,main
+function,main
+	const,0,1,2,3,113,79,24,23
+	set,s,hello world hi ther hi ok...
+	integer,ss,0
+	pointer,ss,s
+	integer,x1,10
+	integer,y1,6
+	integer,x2,15
+	integer,y2,20
+	screen,3
+	color,23
+	window.text,0,0,79,24
+	color,113
+	locate,0,0,0
+	window.text,x1,y1,x2,y2
+	window.text.clear,x1,y1,x2,y2
+	window.text.print,x1,y1,x2,y2,ss
