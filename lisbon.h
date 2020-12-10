@@ -2451,6 +2451,15 @@ int filechain(){
 		}
 openring();
 
+	fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+	addtxtbody("	mov ah,0x3d");
+	addtxtbody("	mov al,2");
+	addtxtbody("	int 0x21");
+	fprintf(f2,"	jc LJMP%d\n",lineno);
+	addtxtbody("	mov bx,ax");
+	addtxtbody("	mov ah,0x3e");
+	addtxtbody("	int 0x21");
+
 									addtxtbody("	mov ax,0xffff");
 									addtxtbody("	mov sp,ax");
 									addtxtbody("	mov ax,cs");
@@ -2470,11 +2479,12 @@ openring();
 									addtxtbody("	dec cx");
 									addtxtbody("	cmp cx,0");
 									fprintf(f2,"jnz mainloop%d\n",lineno);
-									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
-									addtxtbody("	mov ah,0x3d");
-									addtxtbody("	mov al,2");
-									addtxtbody("	int 0x21");
-									fprintf(f2,"	jc LJMP%d\n",lineno);
+	fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+	addtxtbody("	mov ah,0x3d");
+	addtxtbody("	mov al,2");
+	addtxtbody("	int 0x21");
+	fprintf(f2,"	jc LJMP%d\n",lineno);
+
 									addtxtbody("	mov bx,0xfa");
 									addtxtbody("	mov [bx],ax");
 									addtxtbody("	mov ax,0x80");
