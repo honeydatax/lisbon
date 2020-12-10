@@ -1,0 +1,13 @@
+declare,main
+function,main
+	const,0,1,2,3,113,23,79,24
+	integer,x1,10
+	integer,y1,6
+	integer,x2,70
+	integer,y2,20
+	screen,3
+	color,23
+	window.text,0,0,79,24	
+	color,113
+	locate,0,0,0
+	window.text,x1,y1,x2,y2
