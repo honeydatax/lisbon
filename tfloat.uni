@@ -1,0 +1,23 @@
+declare,main
+declare,number
+function,main
+	const,0,1,2,3,4,79,24,23,13,113,6
+	integer,a,0
+	integer,b,0
+	integer,c,17
+	integer,d,1
+	screen,3
+	color,23
+	window.text,0,0,79,24
+	color,113
+	window.text,0,0,13,24
+	for,a,b,c,d#number,a,0,0,0
+	window.text.clear,0,0,6,24
+	color,23
+	window.text,0,0,4,24
+function,number
+	const,0,1,2
+	integer,number0,0
+	(float),number0,argv0	
+	locate,0,argv0,0
+	printfloat,number0

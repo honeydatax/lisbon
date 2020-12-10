@@ -1,0 +1,17 @@
+declare,main
+declare,lists
+function,main
+	lists,argv0,argv0,argv0,argv0
+function,lists
+	const,0,1,2,10,3,79,24,113,23,11
+	;,string
+	string,s,16000
+	;,end string
+	screen,3
+	color,113
+	window.text,0,0,79,24
+	color,23
+	window.text,1,1,11,2
+	locate,1,1,0
+	;,print pointer	
+	printnumber,s

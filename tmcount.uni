@@ -1,0 +1,16 @@
+declare,sub1
+function,sub1
+	const,0,1,2,3,74,24,23,79,14,113
+	integer,i,0
+	screen,3
+	color,23
+	window.text,0,0,79,24
+	color,113
+	window.text,0,0,14,3
+	;,timer counter
+	timer.count,i
+	;,timer counter
+	locate,0,0,0
+	echo,pc speed:
+	locate,0,1,0
+	printnumber,i
