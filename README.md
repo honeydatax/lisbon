@@ -8,3 +8,5 @@ To make you variant of miss lisbon
  and use lisbon as you pre processor
  of you elaborate compilers
 
+Lisbon < hello.uni
+
