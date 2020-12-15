@@ -17,11 +17,11 @@ function,ll
 function,bl
 	const,0,1,2,30
 	locate,30,argv1,0
-	echo,munber is to small
+	echo,number is to small
 function,bb
 	const,0,1,2,30
 	locate,30,argv1,0
-	echo,munber is to big
+	echo,munber is too big
 function,lost
 	const,0,1,2,30
 	integer,l,0
