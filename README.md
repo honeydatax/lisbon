@@ -10,3 +10,13 @@ To make you variant of miss lisbon
 
 Lisbon < hello.uni
 
+
+
+chanel irc #lisbon
+
+https://webchat.freenode.net/
+
+
+
+
+
