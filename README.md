@@ -23,5 +23,5 @@ Lisbon is a mix of basic c c++ bash and php and java
 Have var integer 32 bits float 32bits precision 32 bits
 Long 64bits and memory of 32 adrress as a string,
 Makes .com file named out.com can be renamed
-And code asm on files lisbon.dat ;lisbon1.dat ; list2.dat ;
+And code asm on files lisbon.dat ;lisbon1.dat ; lisbon2.dat ;
 
