@@ -25,3 +25,7 @@ Long 64bits and memory of 32 adrress as a string,
 Makes .com file named out.com can be renamed
 And code asm on files lisbon.dat ;lisbon1.dat ; lisbon2.dat ;
 
+Compile:
+gcc -o lisbon lisbon.c
+
+
