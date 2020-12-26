@@ -28,4 +28,6 @@ And code asm on files lisbon.dat ;lisbon1.dat ; lisbon2.dat ;
 Compile:
 gcc -o lisbon lisbon.c
 
+Need nasm on the path
+
 
