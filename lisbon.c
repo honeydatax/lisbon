@@ -167,7 +167,7 @@ int main(int argc, char *argv[]){
 					if (dd!=NULL){
 						dd=dd+3;
 						i=atoi(dd);
-						printf("function declare not exists you are call a function not creat \"%s\"\n", subs[i]);
+						printf("function declaration does not exist, you are calling a function not created \"%s\"\n", subs[i]);
 						eerror=1;		
 						c[0]=0;
 					}
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]){
 				c[0]=0;
 			}while(!feof(stdin));
 			fclose(f1);
-			if(eerror==0) printf("\ndone...\nopen file lisbon.dat and lisbon1.dat and lisbon2.dat to see codes\n");
+			if(eerror==0) printf("\ndone...\nexecutable is out.com\nopen file lisbon.dat and lisbon1.dat and lisbon2.dat to see generated code\n");
 		}
 return 0;
 }

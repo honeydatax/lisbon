@@ -1,8 +1,7 @@
-
 declare,main
 function,main
 	const,0,1,2,3,113,79,24,23
-	set,s,hello world hi ther hi ok...
+	set,s,hello world hi there hi ok...
 	integer,ss,0
 	pointer,ss,s
 	integer,x1,10

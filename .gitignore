@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Miss Lisbon compiler files
+lisbon.dat
+lisbon1.dat
+lisbon2.dat
+lisbon
+out.com

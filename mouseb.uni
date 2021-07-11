@@ -5,7 +5,7 @@ declare,loop3
 declare,exitss
 function,main
 	const,0,1,2,113,3
-	set,s,hello world hi ther hi ok...
+	set,s,hello world hi there hi ok...
 	integer,n,0
 	integer,p1,0
 	integer,ss,0

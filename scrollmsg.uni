@@ -2,7 +2,7 @@ declare,main
 declare,rool
 function,main
 	const,0,1,2,16,3,23
-	set,s,hello world hi ther hi ok...
+	set,s,hello world hi there hi ok...
 	integer,x1,0
 	integer,y1,0
 	integer,x2,79
