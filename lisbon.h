@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #define textsize 900000
 #define nlines 12000
 
